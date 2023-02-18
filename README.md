@@ -24,7 +24,22 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Application for consuming website carbon data via kafka queue, persisting to db.
+
+Require .env with following connection details:
+
+```bash
+WEB_CARBON=https://api.websitecarbon.com/site?url=
+
+POSTGRES_HOST=SOME_HOST
+POSTGRES_PORT=SOME_PORT
+POSTGRES_USER=SOME_USER
+POSTGRES_PASSWORD=SOME_PASS
+POSTGRES_DATABASE=SOME_DB_NAME
+PORT=SOME_PORT
+MODE=DEV
+RUN_MIGRATIONS=false
+```
 
 ## Installation
 

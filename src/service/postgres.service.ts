@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseFilters } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConsumerDto } from 'src/dto/consumer.dto';
+import { GlobalExceptionFilter } from 'src/error/GlobalExceptionFilter';
 import { CarbonHist } from 'src/model/carbon-hist.entity';
 import { CarbonLatest } from 'src/model/carbon-latest.entity';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 
 @Injectable()
 export class PostgresService {
@@ -17,5 +19,16 @@ export class PostgresService {
 
   public async getAllForId(id: string) {
     return await this.histRepo.find({ where: { address: id } });
+  }
+
+  public async saveFromDto(consumerDto: ConsumerDto) {
+    const hist = new CarbonHist(consumerDto);
+    await this.histRepo.save(hist);
+
+    const latest = new CarbonLatest(consumerDto, hist.id);
+    await this.latestRepo.save(latest);
+
+    console.log('succesfully persisted items...\n');
+    return latest;
   }
 }

@@ -9,6 +9,8 @@ import { configService } from './config/config.service';
 import { CarbonControllerController } from './controller/carbon-controller.controller';
 import { CarbonLatest } from './model/carbon-latest.entity';
 import { CarbonHist } from './model/carbon-hist.entity';
+import { APP_FILTER } from '@nestjs/core';
+import { GlobalExceptionFilter } from './error/GlobalExceptionFilter';
 
 @Module({
   imports: [
@@ -20,6 +22,6 @@ import { CarbonHist } from './model/carbon-hist.entity';
     TypeOrmModule.forFeature([CarbonLatest]),
   ],
   controllers: [ConsumerController, CarbonControllerController],
-  providers: [LoaderService, ConsumerService, PostgresService],
+  providers: [LoaderService, ConsumerService, PostgresService, { provide: APP_FILTER, useClass: GlobalExceptionFilter }],
 })
 export class AppModule {}

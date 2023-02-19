@@ -1,3 +1,6 @@
+import { randomUUID } from 'crypto';
+import { CarbonHist } from 'src/model/carbon-hist.entity';
+
 export class ConsumerDto {
   url: string;
   green: boolean;

@@ -6,6 +6,6 @@ export class ConsumerError extends Error {
   }
 
   printWarning() {
-    console.log(`Failure hitting carbon api for URL: ${this.url}`);
+    console.log(`Failure hitting carbon api for URL: ${this.url}\n`);
   }
 }
